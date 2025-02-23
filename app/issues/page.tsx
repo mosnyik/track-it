@@ -2,13 +2,11 @@ import { prisma } from "@/prisma/prismaClient";
 import { Table } from "@radix-ui/themes";
 import React from "react";
 import IssueStatus from "../components/IssueStatus";
-import delay from "delay";
 import NewIssueButton from "../components/NewIssueButton";
 import Link from "../components/Link";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany();
-  await delay(3000);
   return (
     <div className="space-y-3">
       <NewIssueButton />
