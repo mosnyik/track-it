@@ -1,16 +1,17 @@
 "use client";
-import "easymde/dist/easymde.min.css";
-import { useRouter } from "next/navigation";
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import { useState } from "react";
+import { Button, Callout, Heading, Text, TextField } from "@radix-ui/themes";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
+import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useState } from "react";
 import { z } from "zod";
 import { createIssueSchema } from "../../validationShemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import "easymde/dist/easymde.min.css";
+import IssueHeading from "@/app/components/IssueHeading";
 
 type IssueInput = z.infer<typeof createIssueSchema>;
 
@@ -33,7 +34,8 @@ const IssueNewPage = () => {
       await axios.post("/api/issues", data);
       router.push("/issues");
       setIsSubmitting(false);
-    } catch (error) {
+    } catch (err) {
+      console.log("An error occured", err);
       setIsSubmitting(false);
       setError("An unexpected error have occured");
     }
@@ -48,10 +50,11 @@ const IssueNewPage = () => {
       )}
 
       <form className="space-y-3 " onSubmit={handleSubmit(onSubmit)}>
+        <IssueHeading>Add Issue Title</IssueHeading>
         <TextField.Root placeholder="Title" {...register("title")} />
 
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
-
+        <IssueHeading>Add Issue Description</IssueHeading>
         <Controller
           control={control}
           name="description"
@@ -62,9 +65,11 @@ const IssueNewPage = () => {
 
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button type="submit" disabled={isSubmitting}>
-          Submit New Issue {isSubmitting && <Spinner />}
-        </Button>
+        <div className="flex justify-end">
+          <Button type="submit" disabled={isSubmitting}>
+            Submit New Issue {isSubmitting && <Spinner />}
+          </Button>
+        </div>
       </form>
     </div>
   );
