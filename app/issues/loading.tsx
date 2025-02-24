@@ -1,6 +1,7 @@
 import { Skeleton, Table } from "@radix-ui/themes";
 import React from "react";
-import NewIssueButton from "../components/NewIssueButton";
+import {  NewIssueButton } from "@/app/components";
+
 
 const laoding = () => {
   const issues = [1, 2, 3, 4, 5];

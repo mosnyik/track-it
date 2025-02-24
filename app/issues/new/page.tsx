@@ -8,10 +8,8 @@ import axios from "axios";
 import { z } from "zod";
 import { createIssueSchema } from "../../validationShemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Spinner from "@/app/components/Spinner";
 import "easymde/dist/easymde.min.css";
-import IssueHeading from "@/app/components/IssueHeading";
+import { ErrorMessage, Spinner, IssueHeading } from "@/app/components";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
