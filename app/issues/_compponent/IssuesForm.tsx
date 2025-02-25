@@ -12,9 +12,6 @@ import { ErrorMessage, Spinner, IssueHeading } from "@/app/components";
 import { Issue } from "@prisma/client";
 import SimpleMDE from "react-simplemde-editor";
 
-// const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-//   ssr: false,
-// });
 type IssueInput = z.infer<typeof issueSchema>;
 
 interface Props {
