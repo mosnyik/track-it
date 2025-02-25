@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { z } from "zod";
-import { createIssueSchema } from "../../validationShemas";
+import { issueSchema } from "../../validationShemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "easymde/dist/easymde.min.css";
 import { ErrorMessage, Spinner, IssueHeading } from "@/app/components";
@@ -15,7 +15,7 @@ import { Issue } from "@prisma/client";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
-type IssueInput = z.infer<typeof createIssueSchema>;
+type IssueInput = z.infer<typeof issueSchema>;
 
 interface Props {
   issue?: Issue;
@@ -28,7 +28,7 @@ const EditIssue = ({ issue }: Props) => {
     control,
     formState: { errors },
   } = useForm<IssueInput>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +37,8 @@ const EditIssue = ({ issue }: Props) => {
   const onSubmit: SubmitHandler<IssueInput> = async (data) => {
     try {
       setIsSubmitting(true);
-      await axios.post("/api/issues", data);
+      if (issue) await axios.patch("/api/issues/" + issue.id, data);
+      else await axios.post("/api/issues", data);
       router.push("/issues");
       setIsSubmitting(false);
     } catch (err) {
@@ -78,7 +79,8 @@ const EditIssue = ({ issue }: Props) => {
 
         <div className="flex justify-end">
           <Button type="submit" disabled={isSubmitting}>
-            Submit New Issue {isSubmitting && <Spinner />}
+            {issue ? "Update Issue" : "Submit New Issue"}{" "}
+            {isSubmitting && <Spinner />}
           </Button>
         </div>
       </form>
