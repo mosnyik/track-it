@@ -1,10 +1,9 @@
-import { Flex, Card } from "@radix-ui/themes";
+import { Skeleton, Flex, Card } from "@radix-ui/themes";
 import React from "react";
-import Skeleton from "react-loading-skeleton";
 
 const IssueDetailsLoading = () => {
   return (
-    <div>
+    <div className="max-w-xl">
       <Skeleton />
       <Flex gap="3" my="3">
         <Skeleton width="3rem" />

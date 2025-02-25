@@ -1,12 +1,2 @@
-import Skeleton from "react-loading-skeleton";
-
-const NewIssueLoading = () => {
-  return (
-    <div className="max-w-xl">
-      <Skeleton />
-      <Skeleton height="20rem" />
-    </div>
-  );
-};
-
-export default NewIssueLoading;
+import IssueFormLoadingSkeleton from "../_compponent/IssueFormLoadingSkeleton";
+export default IssueFormLoadingSkeleton;
