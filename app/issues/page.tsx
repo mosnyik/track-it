@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/prismaClient";
-import { Table } from "@radix-ui/themes";
+import { Box, Flex, Table } from "@radix-ui/themes";
 import React from "react";
 import { IssueStatus, NewIssueButton, Link } from "@/app/components";
 
@@ -8,38 +8,44 @@ const Issues = async () => {
   return (
     <div className="space-y-3">
       <NewIssueButton />
-      <Table.Root variant="surface">
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Status
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Created
-            </Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {issues.map((issue) => (
-            <Table.Row key={issue.id}>
-              <Table.RowHeaderCell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-                <div className=" block md:hidden">
-                  <IssueStatus status={issue.status} />
-                </div>
-              </Table.RowHeaderCell>
-              <Table.Cell className="hidden md:table-cell">
-                <IssueStatus status={issue.status} />
-              </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
-                {issue.createdAt.toDateString()}
-              </Table.Cell>
+      {issues.length === 0 ? (
+        <Flex justify="center" align="center" className="max-w-xl">
+          <Box>You have no issues yet</Box>
+        </Flex>
+      ) : (
+        <Table.Root variant="surface">
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">
+                Status
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">
+                Created
+              </Table.ColumnHeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+          </Table.Header>
+
+          <Table.Body>
+            {issues.map((issue) => (
+              <Table.Row key={issue.id}>
+                <Table.RowHeaderCell>
+                  <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                  <div className=" block md:hidden">
+                    <IssueStatus status={issue.status} />
+                  </div>
+                </Table.RowHeaderCell>
+                <Table.Cell className="hidden md:table-cell">
+                  <IssueStatus status={issue.status} />
+                </Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
+                  {issue.createdAt.toDateString()}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      )}
     </div>
   );
 };

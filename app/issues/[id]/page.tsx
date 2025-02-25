@@ -1,10 +1,6 @@
-import { IssueStatus } from "@/app/components";
 import { prisma } from "@/prisma/prismaClient";
-import { Box, Button, Card, Flex, Grid, Heading } from "@radix-ui/themes";
+import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import Markdown from "react-markdown";
-import { Pencil2Icon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetailsData from "./IssueDetailsData";
 
