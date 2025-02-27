@@ -8,11 +8,11 @@ const IssueDetailsData = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Heading>{issue.title}</Heading>
-      <Flex gap="3" my="3">
+      <Flex gap="3" my="3" className="prose">
         <IssueStatus status={issue.status} />
         <p>{issue.createdAt.toDateString()}</p>
       </Flex>
-      <Card className="prose">
+      <Card className="prose max-w-full ">
         <Markdown>{issue.description}</Markdown>
       </Card>
     </>
