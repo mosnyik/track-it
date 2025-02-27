@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import classNames from "classnames";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
-import classNames from "classnames";
-
+import { Box } from "@radix-ui/themes";
+import { useSession } from "next-auth/react";
+import { Spinner } from "./components";
 const Navbar = () => {
+  const { data: session, status } = useSession();
   const currentPath = usePathname();
   const links = [
     {
@@ -22,19 +25,34 @@ const Navbar = () => {
       <Link href="/">
         <AiFillBug />
       </Link>
-      {links.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          className={classNames({
-            "text-zinc-900": link.href === currentPath,
-            "hover:text-zinc-800 transition-colors": link.href !== currentPath,
-            "text-zinc-500": true,
-          })}
-        >
-          {link.label}
-        </Link>
-      ))}
+      <ul className="flex space-x-3">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              className={classNames({
+                "text-zinc-900": link.href === currentPath,
+                "hover:text-zinc-800 transition-colors":
+                  link.href !== currentPath,
+                "text-zinc-500": true,
+              })}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Box>{status === "loading" && <Spinner />}</Box>
+      <Box>
+        {status === "authenticated" && (
+          <Link href={`/api/auth/signout`}>Log out</Link>
+        )}
+      </Box>
+      <Box>
+        {status === "unauthenticated" && (
+          <Link href={`/api/auth/signin`}>Log in</Link>
+        )}
+      </Box>
     </nav>
   );
 };
