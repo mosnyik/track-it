@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./Navbar";
 import { Container, Theme } from "@radix-ui/themes";
-import AuthProvider from "./providers/AuthProvider";
+import AuthProvider from "./api/auth/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
