@@ -1,4 +1,5 @@
 import { IssueStatus } from "@/app/components";
+import ChangeIssueStatus from "@/app/components/ChangeIssueStatus";
 import { Issue } from "@prisma/client";
 import { Heading, Flex, Card } from "@radix-ui/themes";
 import React from "react";
@@ -8,11 +9,12 @@ const IssueDetailsData = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Heading>{issue.title}</Heading>
-      <Flex gap="3" my="3" className="prose">
+      <Flex gap="3" my="3">
         <IssueStatus status={issue.status} />
+        <ChangeIssueStatus issue={issue} />
         <p>{issue.createdAt.toDateString()}</p>
       </Flex>
-      <Card className="prose max-w-full ">
+      <Card className="prose max-w-full">
         <Markdown>{issue.description}</Markdown>
       </Card>
     </>
