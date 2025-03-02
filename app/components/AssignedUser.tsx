@@ -14,7 +14,6 @@ const AssignedUser = async ({
   });
 
   if (!user) return null;
-  console.log(user?.image);
   return (
     <div>
       <Avatar
