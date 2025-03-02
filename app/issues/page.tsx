@@ -2,6 +2,7 @@ import { prisma } from "@/prisma/prismaClient";
 import { Box, Flex, Table } from "@radix-ui/themes";
 import React from "react";
 import { IssueStatus, NewIssueButton, Link } from "@/app/components";
+import AssignedUser from "../components/AssignedUser";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany();
@@ -30,7 +31,16 @@ const Issues = async () => {
             {issues.map((issue) => (
               <Table.Row key={issue.id}>
                 <Table.RowHeaderCell>
-                  <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                  <Link href={`/issues/${issue.id}`}>
+                    <div>
+                      {issue.title}
+                      {issue.assignedToUserId && (
+                        <AssignedUser
+                          assignedToUserId={issue.assignedToUserId ?? ""}
+                        />
+                      )}
+                    </div>
+                  </Link>
                   <div className=" block md:hidden">
                     <IssueStatus status={issue.status} />
                   </div>

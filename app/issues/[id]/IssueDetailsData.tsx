@@ -7,10 +7,8 @@ import { getServerSession } from "next-auth";
 import Markdown from "react-markdown";
 
 const IssueDetailsData = async ({ issue }: { issue: Issue }) => {
-  // get the current user id
   const session = await getServerSession(authOptions);
   const assignedUser = session?.user?.id === issue.assignedToUserId;
-  // comapare the user id with the current assigned user
 
   return (
     <>
