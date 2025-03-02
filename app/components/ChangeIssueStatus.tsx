@@ -4,21 +4,13 @@ import { Skeleton, Select, Badge } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { User } from "next-auth";
-import React from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
-  const { data: users, error, isLoading } = useUsers();
+  //   const { data: users, error, isLoading } = useUsers();
 
-  const assignIssue = async (userId: string) => {
-    try {
-      await axios.patch(`/api/issues/` + issue.id, {
-        assignedToUserId: userId === "unassigned" ? null : userId,
-      });
-    } catch (error) {
-      toast.error("Could not save changes");
-    }
-  };
+  const [selectedStatus, setSelectedStatus] = useState<Status>(issue.status);
 
   const statusMap: Record<
     Status,
@@ -38,15 +30,28 @@ const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
     },
   };
 
-  if (isLoading) return <Skeleton />;
+  const changeIssue = async (newStatus: Status) => {
+    try {
+      await axios.patch(`/api/issues/` + issue.id, {
+        status: newStatus,
+      });
+      setSelectedStatus(newStatus);
+      toast.success(`Status updated to ${statusMap[newStatus].label}`);
+    } catch (error) {
+      toast.error("Could not save changes");
+    }
+  };
 
-  if (error) return null;
+  //   if (isLoading) return <Skeleton />;
+
+  //   if (error) return null;
 
   return (
     <>
       <Select.Root
         defaultValue={statusMap[issue.status].label}
-        onValueChange={() => console.log(issue.status)}
+        value={selectedStatus}
+        onValueChange={(value) => changeIssue(value as Status)}
       >
         <Select.Trigger>
           <Badge color={statusMap[issue.status].color}>
@@ -55,9 +60,9 @@ const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
         </Select.Trigger>
         <Select.Content>
           <Select.Group>
-            {Object.entries(statusMap).map((status) => (
-              <Select.Item value={status[1].label}>
-                {status[1].label}
+            {Object.entries(statusMap).map(([key, { label }]) => (
+              <Select.Item key={key} value={key}>
+                {label}
               </Select.Item>
             ))}
           </Select.Group>

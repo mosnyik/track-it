@@ -8,12 +8,12 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({}, { status: 401 });
+  // const session = await getServerSession(authOptions);
+  // if (!session) return NextResponse.json({}, { status: 401 });
   const body = await request.json();
   const { success, error } = patchIssueSchema.safeParse(body);
 
-  const { assignedToUserId, title, description } = body;
+  const { assignedToUserId, title, description, status } = body;
 
   if (!success)
     return NextResponse.json({ error: error.format() }, { status: 400 });
@@ -35,7 +35,7 @@ export async function PATCH(
   if (!issue) return NextResponse.json({ message: "Invalid Issue" });
   const NewIssue = await prisma.issue.update({
     where: { id: issue.id },
-    data: { title, description, assignedToUserId },
+    data: { title, description, assignedToUserId, status },
   });
   return NextResponse.json(NewIssue);
 }
