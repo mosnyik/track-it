@@ -4,11 +4,14 @@ import { Skeleton, Select, Badge } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { User } from "next-auth";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
   //   const { data: users, error, isLoading } = useUsers();
+
+  const router = useRouter();
 
   const [selectedStatus, setSelectedStatus] = useState<Status>(issue.status);
 
@@ -36,6 +39,7 @@ const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
         status: newStatus,
       });
       setSelectedStatus(newStatus);
+      router.refresh();
       toast.success(`Status updated to ${statusMap[newStatus].label}`);
     } catch (error) {
       toast.error("Could not save changes");
