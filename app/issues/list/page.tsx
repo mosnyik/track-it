@@ -2,10 +2,20 @@ import { prisma } from "@/prisma/prismaClient";
 import { Box, Flex, Table } from "@radix-ui/themes";
 import React from "react";
 import { IssueStatus, NewIssueButton, Link } from "@/app/components";
-import AssignedUser from "../components/AssignedUser";
+import AssignedUser from "../../components/AssignedUser";
+import { Status } from "@prisma/client";
 
-const Issues = async () => {
-  const issues = await prisma.issue.findMany();
+interface Props {
+  searchParams: { status: Status };
+  // searchParams: Record<string, string | undefined>;
+}
+const Issues = async ({ searchParams }: Props) => {
+  const parsedParam = (await searchParams).status;
+  const statuses = Object.values(Status);
+  const status = statuses.includes(parsedParam) ? parsedParam : undefined;
+  const issues = await prisma.issue.findMany({
+    where: { status  },
+  });
   return (
     <div className="space-y-3">
       <NewIssueButton />
