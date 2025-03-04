@@ -25,8 +25,14 @@ const Issues = async ({ searchParams }: Props) => {
       className: "hidden md:table-cell",
     },
   ];
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(resolvedParams.orderBy)
+    ? { [resolvedParams.orderBy]: "asc" }
+    : undefined;
   const issues = await prisma.issue.findMany({
     where: { status },
+    orderBy: orderBy,
   });
 
   return (
@@ -54,7 +60,9 @@ const Issues = async ({ searchParams }: Props) => {
                     }}
                   >
                     {column.label}
-                    {column.value === resolvedParams.orderBy && <ArrowUpIcon className="inline" />}
+                    {column.value === resolvedParams.orderBy && (
+                      <ArrowUpIcon className="inline" />
+                    )}
                   </NextLink>
                 </Table.ColumnHeaderCell>
               ))}
