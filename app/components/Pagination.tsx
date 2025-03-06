@@ -32,7 +32,7 @@ interface Props {
   return (
     <Flex align={"center"} gap={"2"}>
       <Text>
-        Page {currentPage} of {pageNumber}
+        Page {currentPage} of {pageCount}
       </Text>
       <Button
         variant="soft"
