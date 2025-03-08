@@ -1,17 +1,8 @@
-import Pagination from "./components/Pagination";
+import { prisma } from "@/prisma/prismaClient";
+import LatestIssues from "./LatestIssues";
 
-interface Props {
-  searchParams: Promise<{ page: string }>;
-}
+export default function Home() {
 
-export default async function Home({ searchParams }: Props) {
-  const resolvedParams = await searchParams;
-  const currentPage = parseInt(resolvedParams.page);
-  return (
-    <Pagination
-      itemCount={100}
-      pageNumber={10}
-      currentPage={currentPage || 1}
-    />
-  );
+
+  return <LatestIssues />;
 }
