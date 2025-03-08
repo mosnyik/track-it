@@ -7,18 +7,28 @@ import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/api/auth/providers/AuthOptions";
 import AssigneeSelect from "./AssigneeSelect";
+import { cache } from "react";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
+const fetchIssue = cache((issueId: number) =>
+  prisma.issue.findUnique({
+    where: {
+      id: issueId,
+    },
+  })
+);
+
 const IssueDetailsPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: parseInt((await params).id),
-    },
-  });
+  const issue = await fetchIssue(parseInt((await params).id));
+  // prisma.issue.findUnique({
+  //   where: {
+  //     id: parseInt((await params).id),
+  //   },
+  // });
 
   if (!issue) notFound();
 
@@ -41,11 +51,12 @@ const IssueDetailsPage = async ({ params }: Props) => {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: parseInt((await params).id),
-    },
-  });
+  // const issue = await prisma.issue.findUnique({
+  //   where: {
+  //     id: parseInt((await params).id),
+  //   },
+  // });
+  const issue = await fetchIssue(parseInt((await params).id));
   return {
     title: issue?.title,
     description: " Description of issue " + issue?.id,
