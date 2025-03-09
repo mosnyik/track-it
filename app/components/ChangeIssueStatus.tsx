@@ -1,16 +1,12 @@
 "use client";
 import { Issue, Status } from "@prisma/client";
-import { Skeleton, Select, Badge } from "@radix-ui/themes";
-import { useQuery } from "@tanstack/react-query";
+import { Badge, Select } from "@radix-ui/themes";
 import axios from "axios";
-import { User } from "next-auth";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
-  //   const { data: users, error, isLoading } = useUsers();
-
   const router = useRouter();
 
   const [selectedStatus, setSelectedStatus] = useState<Status>(issue.status);
@@ -42,13 +38,10 @@ const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
       router.refresh();
       toast.success(`Status updated to ${statusMap[newStatus].label}`);
     } catch (error) {
+      console.log("an error occured", error);
       toast.error("Could not save changes");
     }
   };
-
-  //   if (isLoading) return <Skeleton />;
-
-  //   if (error) return null;
 
   return (
     <>
@@ -78,11 +71,4 @@ const ChangeIssueStatus = ({ issue }: { issue: Issue }) => {
   );
 };
 
-const useUsers = () =>
-  useQuery({
-    queryKey: ["users"],
-    queryFn: () => axios.get<User[]>("/api/users").then((res) => res.data),
-    staleTime: 60 * 1000, // 60 sec
-    retry: 3,
-  });
 export default ChangeIssueStatus;

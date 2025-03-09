@@ -8,7 +8,7 @@ import IssuesTable, { columnNumber } from "./IssuesTable";
 import { Metadata } from "next";
 
 interface Props {
-  searchParams: IssueQuery;
+  searchParams: Promise<IssueQuery>;
 }
 const Issues = async ({ searchParams }: Props) => {
   const resolvedParams = await searchParams;
