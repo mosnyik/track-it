@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/prisma/prismaClient";
 import { NextAuthOptions } from "next-auth";
 
+export const revalidate = 0;
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -15,14 +16,14 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user, session }) {
+    async jwt({ token, user }) {
       if (user) {
         return { ...token, id: user.id };
       }
 
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       return {
         ...session,
         user: {

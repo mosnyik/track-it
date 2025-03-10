@@ -15,6 +15,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         assignedToUserId: userId === "unassigned" ? null : userId,
       });
     } catch (error) {
+      console.log("error encoutered", error);
       toast.error("Could not save changes");
     }
   };
