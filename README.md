@@ -2,8 +2,8 @@
 
 Track It is a **full-stack issue tracking application** designed to help teams efficiently manage software development issues. With a focus on **performance, scalability, and SEO**, Track It provides a seamless experience for tracking, assigning, and resolving issues. 
 
-## 🚀 Live Demo
-[Live Demo Link](#) (Replace with deployed link)
+<!-- ## 🚀 Live Demo
+[Live Demo Link](#) (Replace with deployed link) -->
 
 ## 🎯 Features
 - **Issue Management:** Create, edit, and delete issues.
@@ -47,6 +47,8 @@ track-it/
 │-- components/          # Reusable React components
 │-- styles/              # Global styles
 │-- env.example         # Example environment variables file
+│-- docker-compose.yml  # Docker compose file
+│-- Dockerfile          # Dockerfile for the next app
 │-- next.config.js      # Next.js configuration file
 │-- package.json        # Project dependencies
 │-- README.md           # Project documentation
@@ -62,7 +64,7 @@ track-it/
 ### Issue Details Page
 ![Issue Details Screenshot](#)
 
-(Add screenshots to showcase the UI)
+<!-- (Add screenshots to showcase the UI) -->
 
 ## 🔥 Why This Project Stands Out
 - ✅ **Demonstrates Full-Stack Proficiency:** Covers both frontend and backend with a structured, maintainable approach.
@@ -104,6 +106,31 @@ npm run dev
 # Starts the app at http://localhost:3000
 ```
 
+## 🐳 Run with Docker
+
+To spin up the app using Docker and Docker Compose:
+
+  ### **1. Clone the repository**
+  ```bash
+  git clone https://github.com/yourusername/track-it.git
+  cd track-it
+  ```
+  ### **2. Start the application**
+  ```bash
+  docker-compose up --build
+  ```
+This command will:
+
+Build the Next.js app using the Dockerfile
+
+Start both the app and the MySQL database using docker-compose
+
+Automatically apply any Prisma migrations (if configured)
+  ### **3. Access the app**
+  ```bash
+   http://localhost:3000
+  ```
+⚠️ If you want to customize credentials or database configs, update them directly in docker-compose.yml or your Docker-related config files.
 
 ## ✨ Future Enhancements
 - 🌟 **Real-time Notifications** (WebSockets or Firebase)
