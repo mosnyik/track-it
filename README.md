@@ -80,7 +80,9 @@ cd track-it
 
 ### **2. Install dependencies**
 ```bash
-npm install  # Using npm for package management
+npm install  
+
+# Using npm for package management
 ```
 
 ### **3. Set up environment variables**
@@ -97,13 +99,11 @@ SENTRY_DSN="your_sentry_dsn"
 
 ### **4. Run the development server**
 ```bash
-npm run dev  # Starts the app at http://localhost:3000
+npm run dev  
+
+# Starts the app at http://localhost:3000
 ```
 
-### **5. Deploy** (Using Vercel)
-```bash
-vercel deploy
-```
 
 ## ✨ Future Enhancements
 - 🌟 **Real-time Notifications** (WebSockets or Firebase)
@@ -114,8 +114,8 @@ vercel deploy
 Feel free to fork the project and contribute! Open an issue or submit a pull request.
 
 ## 📝 License
-MIT License © 2025 Your Name
+MIT License © 2025 Nyikwagh Moses
 
 ---
-💡 **Want to connect?** Reach out on [LinkedIn](#) or check out my portfolio at [yourportfolio.com](#).
+💡 **Want to connect?** Reach out on [LinkedIn](https://www.linkedin.com/in/moses-nyikwagh-a29a25127/) or check out my portfolio at [mosnyik](https://mosnyik.vercel.app/).
 

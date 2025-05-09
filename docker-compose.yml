@@ -1,0 +1,33 @@
+
+services:  
+  db:
+    image: mysql:8.0.36
+    container_name: track_it_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: track_it
+      # MYSQL_PASSWORD: mosnyik
+    ports:
+      - "3307:3306"
+    volumes:
+      - track_it:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: track_it
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=mysql://root:root@db:3306/track_it
+
+    command: sh -c "npx prisma generate && npx prisma migrate dev && npm start"
+
+volumes:
+  track_it:
