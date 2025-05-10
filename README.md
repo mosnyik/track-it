@@ -93,11 +93,7 @@ Copy the provided **`env.example`** file and rename it to **`.env`**, then updat
 cp env.example .env
 ```
 Modify the `.env` file with your database credentials, authentication keys, and other required variables.
-```env
-DATABASE_URL="your_database_url"
-NEXTAUTH_SECRET="your_secret_key"
-SENTRY_DSN="your_sentry_dsn"
-```
+
 
 ### **4. Run the development server**
 ```bash
@@ -115,7 +111,14 @@ To spin up the app using Docker and Docker Compose:
   git clone https://github.com/yourusername/track-it.git
   cd track-it
   ```
-  ### **2. Start the application**
+
+  ### **2. Set up environment variables**
+Copy the provided **`env.example`** file and rename it to **`.env`**, then update it with your credentials.
+```bash
+cp env.example .env
+```
+Modify the `.env` file with your database credentials, authentication keys, and other required variables.
+  ### **3. Start the application**
   ```bash
   docker-compose up --build
   ```
@@ -126,7 +129,7 @@ Build the Next.js app using the Dockerfile
 Start both the app and the MySQL database using docker-compose
 
 Automatically apply any Prisma migrations (if configured)
-  ### **3. Access the app**
+  ### **4. Access the app**
   ```bash
    http://localhost:3000
   ```
