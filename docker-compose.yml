@@ -6,7 +6,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: track_it
-      # MYSQL_PASSWORD: mosnyik
     ports:
       - "3307:3306"
     volumes:
@@ -27,6 +26,6 @@ services:
       - DATABASE_URL=mysql://root:root@db:3306/track_it
 
     command: sh -c "npx prisma generate && npx prisma migrate dev --name init && npm run start"
-  # deploy && npm run build
+
 volumes:
   track_it:
