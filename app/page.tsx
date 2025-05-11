@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/prisma/prismaClient";
 import IssueSummary from "./IssueSummary";
 import LatestIssues from "./LatestIssues";
