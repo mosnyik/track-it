@@ -133,7 +133,14 @@ Automatically apply any Prisma migrations (if configured)
   ```bash
    http://localhost:3000
   ```
+
 ⚠️ If you want to customize credentials or database configs, update them directly in docker-compose.yml or your Docker-related config files.
+
+When you are done, run:
+```bash
+  docker-compose down -v
+  ```
+  This cleans the containers and the images.
 
 ## ✨ Future Enhancements
 - 🌟 **Real-time Notifications** (WebSockets or Firebase)

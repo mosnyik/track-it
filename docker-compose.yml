@@ -25,7 +25,7 @@ services:
       - NODE_ENV=development
       - DATABASE_URL=mysql://root:root@db:3306/track_it
 
-    command: sh -c "npx prisma generate && npx prisma migrate dev --name init && npm run start"
-
+    command: sh -c "./wait-for-it.sh db:3306 && npx prisma generate && npx prisma migrate dev --name init && npm start"
+    # dev --name init ./wait-for-it.sh db && 
 volumes:
   track_it:
