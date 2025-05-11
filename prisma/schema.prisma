@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -13,16 +14,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-  model Issue {
-    id               Int      @id @default(autoincrement())
-    title            String   @db.VarChar(255)
-    description      String   @db.Text
-    status           Status   @default(OPEN)
-    createdAt        DateTime @default(now())
-    updatedAt        DateTime @updatedAt
-    assignedToUserId String?  @db.VarChar(255)
-    assignedToUser   User?    @relation(fields: [assignedToUserId], references: [id])
-  }
+model Issue {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  description      String   @db.Text
+  status           Status   @default(OPEN)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  assignedToUserId String?  @db.VarChar(255)
+  assignedToUser   User?    @relation(fields: [assignedToUserId], references: [id])
+}
 
 enum Status {
   OPEN

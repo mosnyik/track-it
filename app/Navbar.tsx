@@ -45,6 +45,7 @@ const NavLinks = () => {
         <li key={link.href}>
           <Link
             href={link.href}
+            prefetch
             className={classNames({
               "nav-link": true,
 
